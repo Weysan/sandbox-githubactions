@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<ruleset name="Sandbox">
+    <description>Sandbox test standards</description>
+    <exclude-pattern>./vendor/</exclude-pattern>
+
+    <!-- All from PSR2 already includes PSR1 -->
+    <rule ref="PSR2">
+
+    </rule>
+</ruleset>
