@@ -1,4 +1,4 @@
-name: PHP Composer
+name: My custom action
 
 on:
   push:
@@ -7,7 +7,20 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  standards:
+    runs-on: ubuntu-latest
+    container:
+      image: weysan/php-dev:7.4
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+
+      - name: Running standards check
+        run: vendor/bin/phpcs .
+  simple_test:
     runs-on: ubuntu-latest
     container:
       image: weysan/php-dev:7.4
