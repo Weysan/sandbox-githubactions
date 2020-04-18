@@ -1,0 +1,34 @@
+name: My Custom Action
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  standards:
+    runs-on: ubuntu-latest
+    container:
+      image: weysan/php-dev:7.4
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress --no-suggest
+
+    - name: Check standards
+      run: vendor/bin/phpcs .
+
+  unit_test:
+    runs-on: ubuntu-latest
+    container:
+      image: weysan/php-dev:7.4
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+
+      - name: run Unit tests
+        run: vendor/bin/phpunit
