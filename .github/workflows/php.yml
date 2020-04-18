@@ -7,13 +7,10 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
-
+  standards:
     runs-on: ubuntu-latest
-
     container:
       image: weysan/php-dev:7.4
-
     steps:
     - uses: actions/checkout@v2
 
@@ -23,5 +20,15 @@ jobs:
     - name: Check standards
       run: vendor/bin/phpcs .
 
-    - name: run Unit tests
-      run: vendor/bin/phpunit
+  unit_test:
+    runs-on: ubuntu-latest
+    container:
+      image: weysan/php-dev:7.4
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+
+      - name: run Unit tests
+        run: vendor/bin/phpunit
